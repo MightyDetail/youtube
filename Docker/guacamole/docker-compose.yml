@@ -1,0 +1,41 @@
+version: "2"
+services:
+  guacd:
+    image: "guacamole/guacd"
+    container_name: guacd
+    hostname: guacd
+    restart: unless-stopped
+    volumes:
+      - "/opt/guacamole/guacd/data:/data"
+      - "/opt/guacamole/guacd/conf:/conf:ro"
+    expose:
+      - "4822"
+    ports:
+      - "4822:4822"
+    network_mode: bridge
+
+  guacamole:
+    image: "guacamole/guacamole"
+    container_name: guacamole
+    hostname: guacamole
+    restart: unless-stopped
+    volumes:
+      - "/opt/guacamole/guacamole/guac-home:/data"
+      - "/opt/guacamole/guacamole/conf:/conf:ro"
+      # REPLACE logo
+      #- "/opt/guacamole/logo.png:/usr/local/tomcat/webapps/guacamole/images/guac-tricolor.png"
+      # FORWARD TO SUBDIR
+      - "/opt/guacamole/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp"
+    expose:
+      - "8000"
+    ports:
+      - "8000:8080"
+    network_mode: bridge
+    environment:
+      - "GUACD_PORT=4822"
+      - "MYSQL_HOSTNAME=mariadb"
+      - "MYSQL_PORT=3306"
+      - "MYSQL_DATABASE=guacamole"
+      - "MYSQL_USER=guacamole"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "GUACAMOLE_HOME=/data"
