@@ -1,0 +1,28 @@
+  minecraft:
+    container_name: minecraft
+    image: itzg/minecraft-server:latest
+    restart: unless-stopped
+    environment:
+      UID: 1000
+      GID: 1000
+      EULA: "TRUE"
+      ENABLE_RCON: "TRUE"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: "28016"
+      TZ: "Europe/Berlin"
+      REPLACE_ENV_VARIABLES: "TRUE"
+      #MEMORY: 2G
+      MAX_MEMORY: 2G
+      TYPE: PAPER
+      VERSION: LATEST
+      #CONSOLE: FALSE
+      DIFFICULTY: hard
+      #SEED:
+      OPS: MightyDetail
+      MOTD: "MightyDetail Testserver              twitch.tv/mightydetail | youtube.com/mightydetail"
+      ICON: https://raw.githubusercontent.com/MightyDetail/web/master/images/server-icon-blue.png
+    command: --noconsole
+    ports:
+      - 25565:25565
+    volumes:
+      - /opt/minecraft:/data
