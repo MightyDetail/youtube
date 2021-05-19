@@ -1,0 +1,15 @@
+  minecraft-proxy:
+    container_name: minecraft-proxy
+    image: itzg/bungeecord:latest
+    environment:
+      UID: 1000
+      GID: 1000
+      TYPE: BUNGEECORD
+      #TYPE: WATERFALL
+      MEMORY: 512M
+      #MAX_MEMORY: 1G
+    restart: unless-stopped
+    ports:
+      - 25565:25577
+    volumes:
+      - /opt/minecraft-proxy:/server
