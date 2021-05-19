@@ -1,0 +1,7 @@
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 8600 --cleanup
+    restart: unless-stopped
