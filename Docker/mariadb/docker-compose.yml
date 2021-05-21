@@ -11,6 +11,7 @@ services:
       - 3306:3306
     environment:
       TZ: "Europe/Berlin"
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     #command: --max_connections=1024
     tty: true
 
