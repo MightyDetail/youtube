@@ -25,14 +25,15 @@ services:
       # REPLACE logo
       #- "/opt/guacamole/logo.png:/usr/local/tomcat/webapps/guacamole/images/guac-tricolor.png"
       # FORWARD TO SUBDIR
-      - "/opt/guacamole/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp"
+      #- "/opt/guacamole/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp"
+    links:
+      - "guacd:guacd"
     expose:
-      - "8000"
+      - "8080"
     ports:
-      - "8000:8080"
+      - "8080:8080"
     network_mode: bridge
     environment:
-      - "GUACD_PORT=4822"
       - "MYSQL_HOSTNAME=mariadb"
       - "MYSQL_PORT=3306"
       - "MYSQL_DATABASE=guacamole"
