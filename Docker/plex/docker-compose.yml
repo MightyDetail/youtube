@@ -1,0 +1,58 @@
+version: "3.4"
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /opt/plex/config
+      o: bind
+# für lokale Dateien
+#  musik:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: /mnt/musik
+#      o: bind      
+# Daten über NFS mounten      
+#  serien:
+#    driver: local
+#    driver_opts:
+#      type: nfs4
+#      o: "addr=${host},rw"
+#      device: ":/mnt/media/serien"
+# Daten über Samba mounten
+#  filme:
+#    driver: local
+#    driver_opts:
+#      type: cifs
+#      o: "username=${username},password=${password},domain=${domain},uid=${uid},gid=${gid},vers=3.0"
+#      device: "//${host}/filme"
+
+services:
+  plex:
+    image: ghcr.io/linuxserver/plex:latest
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+# wenn ihr nicht den HOST Modus nehmt
+#    ports:
+#      - 32400:32400
+#      - 32400:32400/udp
+#      - 32469:32469
+#      - 32469:32469/udp
+#      - 5353:5353/udp
+#      - 1900:1900/udp
+
+    volumes:
+      - data:/config
+      #- musik:/media/musik
+      #- serien:/media/serien
+      #- filme:/media/filme
+
+    environment:
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=1000
+      - VERSION=latest
+#      - PLEX_CLAIM=
