@@ -24,7 +24,7 @@ services:
       - "/opt/guacamole/guacamole/conf:/conf:ro"
       # REPLACE logo
       #- "/opt/guacamole/logo.png:/usr/local/tomcat/webapps/guacamole/images/guac-tricolor.png"
-      # FORWARD TO SUBDIR
+      # FORWARD TO SUBDIR *in Guacamole 1.4 something changed and this does not work at the moment*
       #- "/opt/guacamole/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp"
     links:
       - "guacd:guacd"
